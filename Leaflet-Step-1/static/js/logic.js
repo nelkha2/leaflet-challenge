@@ -14,14 +14,18 @@ function createFeatures(earthquakeData) {
         layer.bindPopup("<h3>Location: " + feature.properties.place +
           "</h3><hr><p>Magnitude:" + feature.properties.mag + "</p>");
 
+        //Problem: unable to update magData correctly  
+        //magnitude data to scale circles on map
         var magData = [];
         for (var i = 0; i < earthquakeData.length; i++) {
             console.log("loop",feature.properties.mag);
             magData.push(feature.properties.mag);
 
-        };
+        };//for loop ending
 
         console.log("magData",magData);
+
+        return magData;
 
     }// onEachFeature ending 
 
@@ -31,15 +35,19 @@ function createFeatures(earthquakeData) {
     
     }) ;// GeoJSON earthquakes ending
 
-
+    //Problem: unable to output array with magnitude values from onEachFeature function
+    // Intention was to run a foor loop with the manginute values to change the radius
+    
     var geojsonMarkerOptions = {
-        radius:12,
+        radius:15,
         fillColor: "#ff7800",
         color: "#000",
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
-    };
+
+    } // geojsonMarkerOptions
+    
 
     var earthquakeCircles = L.geoJSON(earthquakeData, {
         pointToLayer: function (feature, latlng) {
@@ -47,7 +55,7 @@ function createFeatures(earthquakeData) {
         }
     });
 
-    createMap(earthquakes,earthquakeCircles);
+    createMap(earthquakes,earthquakeCircles)
 
 
 } //createFeatures ending 
@@ -96,16 +104,6 @@ function createMap(earthquakes, earthquakeCircles) {
 } //createMap ending
 
 
-
-//----------------------------------------------------//
-//Research - Testing 
-    // //NE Sample: display a circle - not on GeoJSON guide 
-    // var circle = L.circle([51.508, -0.11], {
-    //     color: 'red',
-    //     fillColor: '#f03',
-    //     fillOpacity: 0.5,
-    //     radius: 500
-    // }).addTo(myMap);
 
 
 
